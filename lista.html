@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .edit-btn, .delete-btn {
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+            color: white;
+        }
+        .edit-btn {
+            background-color: #4CAF50;
+        }
+        .delete-btn {
+            background-color: #f44336;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+        .nav-links a i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Alunos</h1>
+    <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Página Inicial</a>
+        <a href="cadastro.html"><i class="fas fa-user-plus"></i> Cadastrar Aluno</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Número de Matrícula</th>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Turma</th>
+                <th>Endereço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="studentTableBody">
+            <!-- Dados dos alunos serão carregados aqui pelo JavaScript -->
+             <tr>
+                <th>
+                    
+                </th>
+             </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal de Edição -->
+    <div id="editModal" style="display:none;">
+        <h2>Editar Aluno</h2>
+        <form id="editForm">
+            <input type="hidden" id="editIndex">
+            <div>
+                <label for="editName">Nome:</label>
+                <input type="text" id="editName" name="name" required>
+            </div>
+            <div>
+                <label for="editAge">Idade:</label>
+                <input type="number" id="editAge" name="age" required>
+            </div>
+            <div>
+                <label for="editCpf">CPF:</label>
+                <input type="text" id="editCpf" name="cpf" required>
+            </div>
+            <div>
+                <label for="editPhone">Telefone:</label>
+                <input type="text" id="editPhone" name="phone" required>
+            </div>
+            <div>
+                <label for="editClass">Turma:</label>
+                <input type="text" id="editClass" name="class" required>
+            </div>
+            <div>
+                <label for="editStreet">Rua:</label>
+                <input type="text" id="editStreet" name="street" required>
+            </div>
+            <div>
+                <label for="editNeighborhood">Bairro:</label>
+                <input type="text" id="editNeighborhood" name="neighborhood" required>
+            </div>
+            <div>
+                <label for="editCity">Cidade:</label>
+                <input type="text" id="editCity" name="city" required>
+            </div>
+            <div>
+                <label for="editState">Estado:</label>
+                <input type="text" id="editState" name="state" required>
+            </div>
+            <div>
+                <label for="editComplement">Complemento:</label>
+                <input type="text" id="editComplement" name="complement">
+            </div>
+            <div>
+                <label for="editZipcode">CEP:</label>
+                <input type="text" id="editZipcode" name="zipcode" required>
+            </div>
+            <button type="submit">Salvar</button>
+        </form>
+        <button onclick="closeEditModal()">Cancelar</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="buscaAluno.js"></script>
+</body>
+</html>
