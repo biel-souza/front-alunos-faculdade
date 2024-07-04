@@ -1,13 +1,14 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // URL da API
     const apiUrl = 'http://localhost:8080/alunos';
 
     // Fazendo a chamada GET para a API
-    fetch(apiUrl)
+    const alunos = await fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro na rede: ' + response.statusText);
             }
+
             return response.json();
         })
         .then(data => {
@@ -50,14 +51,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const acoes = document.createElement('td');
 
-                const button = document.createElement('button');
-                button.textContent = 'Editar';
-                button.addEventListener('click', () => {
-                    alert('Ação clicada para ' + aluno.nome);
-                });
+                const buttonDelete = document.createElement('button');
+                buttonDelete.className = 'fas fa-trash-alt icon-blue';
+                buttonDelete.style.border = '0';
+                buttonDelete.style.cursor = 'pointer';
+                buttonDelete.addEventListener('click', async () => {
+                    await fetch(`${apiUrl}/${aluno.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        }})
+                    location.reload();
+                }
+                );
 
-                // Adicionando o botão ao td
-                acoes.appendChild(button);
+                acoes.appendChild(buttonDelete);
+
+                const buttonEdit = document.createElement('button');
+                buttonEdit.className = 'fas fa-pen icon-blue';
+                buttonEdit.style.border = '0';
+                buttonEdit.style.marginLeft = '15px'
+                buttonEdit.style.cursor = 'pointer';
+                buttonEdit.addEventListener('click', async () => {
+                    openEditModal(aluno);
+                }
+                );
+
+                acoes.appendChild(buttonEdit);
 
                 tr.appendChild(acoes);
 
@@ -65,10 +85,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             });
         })
-        .catch(error => {
-            console.error('Erro:', error);
-            // Exibindo a mensagem de erro na página
-            const dadosDiv = document.getElementById('dados');
-            dadosDiv.textContent = 'Erro ao carregar os dados da API: ' + error.message;
-        });
+
+        function openEditModal(aluno) {
+            document.getElementById('endereco_id').value = aluno.endereco.id;
+            document.getElementById('id').value = aluno.id;
+            document.getElementById('nome').value = aluno.nome;
+            document.getElementById('idade').value = aluno.idade;
+            document.getElementById('cpf').value = aluno.cpf;
+            document.getElementById('telefone').value = aluno.telefone;
+            document.getElementById('turma').value = aluno.turma;
+            document.getElementById('rua').value = aluno.endereco?.rua;
+            document.getElementById('bairro').value = aluno.endereco?.bairro;
+            document.getElementById('cidade').value = aluno.endereco?.cidade;
+            document.getElementById('estado').value = aluno.endereco.estado;
+            document.getElementById('complemento').value = aluno.endereco.complemento;
+            document.getElementById('cep').value = aluno.endereco.cep;
+            document.getElementById('numero').value = aluno.endereco.numero;
+        
+            document.getElementById('list').style.display = 'none';
+            document.getElementById('editModal').style.display = 'block';
+        }
 });
+
+
